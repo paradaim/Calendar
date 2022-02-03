@@ -1,0 +1,61 @@
+﻿@model CalendarViewModel;
+@{
+    ViewData["Title"] = "Calendar";
+}
+<div class="col-md-12">
+    <h3>Choose your month: </h3>
+</div>
+<div class="col-md-12 text-center" id=CalendarBtns>
+    @foreach (var item in Model.months)
+    {
+        if (item != Model.selectedMonth)
+        {
+            <button type="button" data-url='@Url.Action("_Appointments","Home", new { month = item } )'
+        class="btn btn-primary ">@item</button>
+        }
+        else
+        {
+            <button type="button" data-url='@Url.Action("_Appointments","Home", new { month = item } )'
+        class="btn btn-success ">@item</button>
+        }
+    }
+</div>
+<div class="row">
+    <div id="AppointmentsDiv" class="col-md-5 mt-4  ">
+    </div>
+    <div id="AppointmentsDetailsDiv" class="offset-1 col-md-5 mt-4 ">
+    </div>
+    @section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            var url = $("#CalendarBtns button.btn-success").data('url');
+            $.get(url, function (data) {
+                $('#AppointmentsDiv').append(data);
+            });
+        });
+        $("#CalendarBtns button").on("click", function (evt) {
+            $('#AppointmentsDiv').empty();
+            $('#AppointmentsDetailsDiv').empty();
+            $("#CalendarBtns button").removeClass("btn-success");
+            $("#CalendarBtns button").addClass("btn-primary");
+            $(this).addClass("btn-success");
+            evt.preventDefault();
+            evt.stopPropagation();
+            url = $(this).data('url');
+            $.get(url, function (data) {
+                $('#AppointmentsDiv').append(data);
+            });
+            @* alert($(this).text()); *@
+    });
+        $("#AppointmentsDiv").on("click", ".AppointmentsDetails", function (evt) {
+            $('#AppointmentsDetailsDiv').empty();
+            evt.preventDefault();
+            evt.stopPropagation();
+            url = $(this).data('url');
+            $.get(url, function (data) {
+                $('#AppointmentsDetailsDiv').append(data);
+            });
+        });
+    </script>
+    }

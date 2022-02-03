@@ -1,0 +1,20 @@
+@model TasksDetailsViewModel
+@if (!string.IsNullOrEmpty(Model.task.Subject))
+{
+    <div class="row border border-1 rounded p-2">
+
+        <h6><b>Description:</b> @Model.task.Subject</h6>
+        <h6><b>Date:</b> @Model.task.Organizer</h6>
+        <h6><b>Organizer:</b> @Model.task.Date</h6>
+
+        @if (Model.Attendees.Count() > 0)
+        {
+            <hr>
+            <h5>Attendees:</h5>
+            @foreach (var item in Model.Attendees)
+            {
+                <h6>@item.Name</h6>
+            }
+        }
+    </div>
+}

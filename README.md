@@ -3,5 +3,5 @@ The calendar allows the user to choose a month and then                 displays
 # Script Data and Schema from DB
 Attach to Git
 # Demo
-[a Please Click Here link](http://crossvertise.paradaim.com)
+[Please Click Here](http://crossvertise.paradaim.com)
 
